@@ -15,16 +15,16 @@ int main(int argc, char* argv[]){
 		return 0;
 	}
 	
-	double a = stod(argv[1]);
-	double b = stod(argv[2]);
-	long long int N = stoll(argv[3]);
+	double a = stod(argv[1]); # a and b are the x and y coordinates of the point
+	double b = stod(argv[2]); 
+	long long int N = stoll(argv[3]); #number of trials
 	
 	
 	
 	random_device rd;
 	int seed_value = rd();
 	mt19937 generator(seed_value);
-	uniform_real_distribution<double> distribution_x(-1,1);
+	uniform_real_distribution<double> distribution_x(-1,1); #the random distributions we will draw from to find our random point
 	uniform_real_distribution<double> distribution_y(-1,1);
 	auto draw_x = bind(distribution_x, ref(generator));
 	auto draw_y = bind(distribution_y, ref(generator));
@@ -34,24 +34,24 @@ int main(int argc, char* argv[]){
 	double x;
 	double y;
 	
-	for(int i=0; i<N; i++){
+	for(int i=0; i<N; i++){ #run for the number of trials specified
 		x = draw_x();
 		y = draw_y();
-		while(!is_valid(x,y)){
+		while(!is_valid(x,y)){ #check that the point is in the unit circle since we are drawing from a square
 			x = draw_x();
 			y = draw_y();
 		}
 		total_distance += pow(pow(x-a,2) + pow(y-b,2), .5);
 	}
-	double average_distance = total_distance/double(N);
+	double average_distance = total_distance/double(N); #take the average of all the trials
 	
 	cout << setprecision(12) << endl << endl;
-	cout << "The approximate average distance of a point in the unit circle is: " << average_distance << endl << endl;
+	cout << "The approximate average distance to a point in the unit circle is: " << average_distance << endl << endl;
 	
 	return 0;
 }
 
-bool is_valid(double x, double y){
+bool is_valid(double x, double y){ #function to check if the point in the square is also in the circle
 	if((x*x)+(y*y) <= 1) return true;
 	return false;
 }
