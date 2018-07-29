@@ -7,6 +7,8 @@
 
 using namespace std;
 
+//how many random moves until a queen has hit every spot on a chessboard
+
 int main(int argc, char* argv[]){
 	if(argc < 3){
 		cout << "Please enter the necessary 2 command line arguments next time. Now terminating." << endl;
